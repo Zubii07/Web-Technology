@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tech Summit 2024 – Registration</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0f1a;
+      --surface:  #141829;
+      --card:     #1c2038;
+      --accent:   #4f8ef7;
+      --accent2:  #a78bfa;
+      --success:  #34d399;
+      --border:   rgba(255,255,255,.08);
+      --text:     #e2e8f0;
+      --muted:    #8892a4;
+      --error:    #f87171;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── HERO BANNER ── */
+    .banner {
+      width: 100%;
+      background: linear-gradient(135deg, #0d0f1a 0%, #1a1040 50%, #0d0f1a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse at center, rgba(79,142,247,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .event-label {
+      display: inline-block;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: .72rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: .35rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 1.2rem;
+    }
+
+    .banner h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      background: linear-gradient(90deg, #4f8ef7, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: .6rem;
+    }
+
+    .banner-sub {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .banner-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .2rem;
+    }
+
+    .meta-label {
+      font-size: .68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ── FORM WRAPPER ── */
+    .form-wrapper {
+      width: 100%;
+      max-width: 760px;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ── SECTION CARD ── */
+    .form-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* ── FIELDS ── */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .field { display: flex; flex-direction: column; gap: .45rem; }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .5px;
+    }
+
+    label .req { color: var(--accent); margin-left: 2px; }
+    label .opt { font-size: .7rem; color: #5a637a; margin-left: 4px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    select,
+    textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      padding: .75rem 1rem;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      width: 100%;
+    }
+
+    input::placeholder,
+    textarea::placeholder { color: #3d4760; }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(79,142,247,.15);
+    }
+
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238892a4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+
+    textarea { resize: vertical; min-height: 110px; }
+
+    /* ── RADIO BUTTONS ── */
+    .radio-group { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: .2rem; }
+
+    .radio-option { position: relative; }
+
+    .radio-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: .6rem 1.1rem;
+      cursor: pointer;
+      font-size: .88rem;
+      font-weight: 500;
+      transition: border-color .2s, background .2s;
+    }
+
+    .radio-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .2s;
+    }
+
+    .radio-option input:checked ~ .radio-label {
+      border-color: var(--accent);
+      background: rgba(79,142,247,.08);
+      color: var(--text);
+    }
+
+    .radio-option input:checked ~ .radio-label .radio-dot {
+      border-color: var(--accent);
+      background: var(--accent);
+      box-shadow: 0 0 0 2px rgba(79,142,247,.3);
+    }
+
+    /* ── SPEAKER EXTRAS (conditional) ── */
+    #speaker-extras {
+      display: none;
+      margin-top: 1.2rem;
+      padding: 1rem 1.2rem;
+      background: rgba(167,139,250,.07);
+      border: 1px solid rgba(167,139,250,.25);
+      border-radius: 8px;
+    }
+
+    #speaker-extras.visible { display: block; }
+
+    .extras-title {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--accent2);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+
+    /* ── SUBMIT ── */
+    .submit-area { margin-top: 1.5rem; }
+
+    .notice {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .notice a { color: var(--accent); text-decoration: underline; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+      position: relative;
+    }
+
+    .btn-submit:hover { opacity: .9; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* ── SUCCESS TOAST ── */
+    #toast {
+      display: none;
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      background: var(--success);
+      color: #063d29;
+      font-weight: 700;
+      font-size: .9rem;
+      padding: 1rem 1.6rem;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(52,211,153,.3);
+      z-index: 999;
+      animation: slideIn .3s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .field-row { grid-template-columns: 1fr; }
+      .form-section { padding: 1.2rem; }
+      .banner { padding: 2rem 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── BANNER ── -->
+  <div class="banner">
+    <p class="event-label">▸ Registration Open</p>
+    <h1>Tech Summit 2024</h1>
+    <p class="banner-sub">The Premier Conference for Builders, Innovators & Leaders</p>
+    <div class="banner-meta">
+      <div class="meta-item">
+        <span class="meta-label">Date</span>
+        <span class="meta-value">November 14–16, 2024</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Venue</span>
+        <span class="meta-value">Expo Center, San Francisco</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Seats Left</span>
+        <span class="meta-value">142</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FORM ── -->
+  <div class="form-wrapper">
+    <form id="registrationForm" novalidate>
+
+      <!-- § 1 — Basic Information -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-num">1</div>
+          <h2 class="section-title">Basic Information</h2>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="fullName">Full Name <span class="req">*</span></label>
+            <input type="text" id="fullName" name="fullName"
+                   placeholder="e.g. Jane Doe"
+                   required autocomplete="name"/>
+          </div>
+          <div class="field">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" name="email"
+                   placeholder="you@example.com"
+                   required autocomplete="email"/>
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone"
+                   placeholder="+1 (555) 000-0000"
+                   required autocomplete="tel"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- § 2 — Company / Organization -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-num">2</div>
+          <h2 class="section-title">Company / Organization</h2>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="company">Company / Organization <span class="req">*</span></label>
+            <input type="text" id="company" name="company"
+                   placeholder="Acme Corp"
+                   required autocomplete="organization"/>
+          </div>
+          <div class="field">
+            <label for="website">Company Website <span class="opt">(optional)</span></label>
+            <input type="url" id="website" name="website"
+                   placeholder="https://yourcompany.com"
+                   autocomplete="url"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- § 3 — Registration Type -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-num">3</div>
+          <h2 class="section-title">Registration Type</h2>
+        </div>
+
+        <div class="field">
+          <label>Select your pass <span class="req">*</span></label>
+          <div class="radio-group" id="regTypeGroup">
+
+            <div class="radio-option">
+              <input type="radio" name="regType" id="regular" value="regular" required/>
+              <label class="radio-label" for="regular">
+                <span class="radio-dot"></span>Regular
+              </label>
+            </div>
+
+            <div class="radio-option">
+              <input type="radio" name="regType" id="vip" value="vip"/>
+              <label class="radio-label" for="vip">
+                <span class="radio-dot"></span>VIP
+              </label>
+            </div>
+
+            <div class="radio-option">
+              <input type="radio" name="regType" id="speaker" value="speaker"/>
+              <label class="radio-label" for="speaker">
+                <span class="radio-dot"></span>Speaker
+              </label>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Speaker-only extras -->
+        <div id="speaker-extras">
+          <p class="extras-title">Speaker Details</p>
+          <div class="field-row">
+            <div class="field">
+              <label for="talkTitle">Talk Title</label>
+              <input type="text" id="talkTitle" name="talkTitle" placeholder="Your session title"/>
+            </div>
+            <div class="field">
+              <label for="sessionTrack">Preferred Track</label>
+              <select id="sessionTrack" name="sessionTrack">
+                <option value="">— Select a track —</option>
+                <option value="ai">AI &amp; Machine Learning</option>
+                <option value="cloud">Cloud &amp; Infrastructure</option>
+                <option value="security">Cybersecurity</option>
+                <option value="product">Product &amp; Design</option>
+                <option value="data">Data Engineering</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- § 4 — Additional Information -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-num">4</div>
+          <h2 class="section-title">Additional Information</h2>
+        </div>
+
+        <div class="field">
+          <label for="comments">Comments / Special Requirements <span class="opt">(optional)</span></label>
+          <textarea id="comments" name="comments"
+                    placeholder="Accessibility needs, dietary restrictions, questions, or anything else we should know…"></textarea>
+        </div>
+      </div>
+
+      <!-- § SUBMIT ── -->
+      <div class="submit-area">
+        <p class="notice">
+          By registering you agree to our <a href="#">Terms &amp; Conditions</a> and 
+          <a href="#">Privacy Policy</a>. Fields marked <span style="color:var(--accent)">*</span> are required.
+        </p>
+        <button type="submit" class="btn-submit">Register for Tech Summit 2024 →</button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast">✓ Registration submitted! Check your inbox for confirmation.</div>
+
+  <script>
+    // Show speaker extras conditionally
+    const radios = document.querySelectorAll('input[name="regType"]');
+    const extras = document.getElementById('speaker-extras');
+
+    radios.forEach(r => {
+      r.addEventListener('change', () => {
+        extras.classList.toggle('visible', r.value === 'speaker' && r.checked);
+      });
+    });
+
+    // Form submission
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!this.checkValidity()) {
+        this.reportValidity();
+        return;
+      }
+      const toast = document.getElementById('toast');
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 4000);
+      this.reset();
+      extras.classList.remove('visible');
+    });
+  </script>
+
+</body>
+</html>
